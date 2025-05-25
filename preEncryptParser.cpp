@@ -75,6 +75,8 @@
 #line 1 "preEncrypt.y"
 
 #include <stdio.h>
+#include <cstdlib>
+#include <string.h>
 
 extern FILE* yyin; 
 extern int yylex();
@@ -101,7 +103,13 @@ void yyerror(const char *s);
 #endif
 
 #if ! defined (YYSTYPE) && ! defined (YYSTYPE_IS_DECLARED)
-typedef int YYSTYPE;
+#line 12 "preEncrypt.y"
+typedef union YYSTYPE {
+    int number;
+    char* name;
+} YYSTYPE;
+/* Line 196 of yacc.c.  */
+#line 113 "preEncryptParser.cpp"
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 # define YYSTYPE_IS_TRIVIAL 1
@@ -113,7 +121,7 @@ typedef int YYSTYPE;
 
 
 /* Line 219 of yacc.c.  */
-#line 117 "preEncryptParser.cpp"
+#line 125 "preEncryptParser.cpp"
 
 #if ! defined (YYSIZE_T) && defined (__SIZE_TYPE__)
 # define YYSIZE_T __SIZE_TYPE__
@@ -332,7 +340,7 @@ static const yysigned_char yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const unsigned char yyrline[] =
 {
-       0,    14,    14,    16,    16,    18,    20
+       0,    24,    24,    26,    26,    28,    32
 };
 #endif
 
@@ -1087,12 +1095,30 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-      
+        case 5:
+#line 28 "preEncrypt.y"
+    {
+    printf("Found section with parameters\n");
+;}
+    break;
+
+  case 6:
+#line 32 "preEncrypt.y"
+    {
+    if ((yyvsp[-2].number) <= 0 || (yyvsp[0].number) <= 0) {
+        yyerror("Numeric parameters must be greater than 0");
+    }
+    printf("Processed parameters: %s, %d, %d\n", (yyvsp[-4].name), (yyvsp[-2].number), (yyvsp[0].number));
+    free((yyvsp[-4].name));  
+;}
+    break;
+
+
       default: break;
     }
 
 /* Line 1126 of yacc.c.  */
-#line 1096 "preEncryptParser.cpp"
+#line 1122 "preEncryptParser.cpp"
 
   yyvsp -= yylen;
   yyssp -= yylen;
@@ -1360,7 +1386,7 @@ yyreturn:
 }
 
 
-#line 22 "preEncrypt.y"
+#line 40 "preEncrypt.y"
 
 
 int main(int argc, char *argv[]) {
@@ -1387,4 +1413,5 @@ int main(int argc, char *argv[]) {
 void yyerror(const char *s) 
 {
     fprintf(stderr, "Error: %s\n", s);
+    exit(1);
 }

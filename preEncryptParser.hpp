@@ -45,7 +45,13 @@
 
 
 #if ! defined (YYSTYPE) && ! defined (YYSTYPE_IS_DECLARED)
-typedef int YYSTYPE;
+#line 12 "preEncrypt.y"
+typedef union YYSTYPE {
+    int number;
+    char* name;
+} YYSTYPE;
+/* Line 1447 of yacc.c.  */
+#line 55 "preEncryptParser.hpp"
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 # define YYSTYPE_IS_TRIVIAL 1

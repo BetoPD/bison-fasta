@@ -1,4 +1,4 @@
-#File1.fasta,10,2
+#File1.fasta,10,12
 
 Once upon a time, in a world unlike our own, there existed a land known as Pandora. 
 This vibrant world was filled with lush forests, towering mountains, and breathtaking 

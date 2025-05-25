@@ -4,6 +4,7 @@
 
 %{
 #include <stdio.h>
+#include <string.h>
 #include "preEncryptParser.hpp"
 %}
 
@@ -15,6 +16,7 @@
 
 
 <PARAMS>[a-zA-Z]+[0-9]*".fasta" {
+    yylval.name = strdup(yytext);
     return FILE_NAME;
 }
 
@@ -22,7 +24,8 @@
     return COMMA;
 }
 
-<PARAMS>[0-9]+ {
+<PARAMS>("+"|"-")?[0-9]+ {
+    yylval.number = atoi(yytext);
     return NUMERIC_PARAMS;
 }
 
